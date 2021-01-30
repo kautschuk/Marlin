@@ -804,22 +804,23 @@
 //
 // Add the G35 command to read bed corners to help adjust screws. Requires a bed probe.
 //
-//#define ASSISTED_TRAMMING
+#define ASSISTED_TRAMMING
 #if ENABLED(ASSISTED_TRAMMING)
 
   // Define positions for probe points.
-  #define TRAMMING_POINT_XY { {  20, 20 }, { 180,  20 }, { 180, 180 }, { 20, 180 } }
+  // Note: take into account NOZZLE_TO_PROBE_OFFSET and PROBING_MARGIN
+  #define TRAMMING_POINT_XY { {40, 40 }, { X_BED_SIZE-40, 40 }, { X_BED_SIZE-40, Y_BED_SIZE-40 }, { 40, Y_BED_SIZE-40 } }
 
   // Define position names for probe points.
-  #define TRAMMING_POINT_NAME_1 "Front-Left"
-  #define TRAMMING_POINT_NAME_2 "Front-Right"
-  #define TRAMMING_POINT_NAME_3 "Back-Right"
-  #define TRAMMING_POINT_NAME_4 "Back-Left"
+  #define TRAMMING_POINT_NAME_1 "Back Right"
+  #define TRAMMING_POINT_NAME_2 "Back Left"
+  #define TRAMMING_POINT_NAME_3 "Front Left"
+  #define TRAMMING_POINT_NAME_4 "Front Right"
 
-  #define RESTORE_LEVELING_AFTER_G35    // Enable to restore leveling setup after operation
-  //#define REPORT_TRAMMING_MM          // Report Z deviation (mm) for each point relative to the first
+  //#define RESTORE_LEVELING_AFTER_G35  // Enable to restore leveling setup after operation
+  #define REPORT_TRAMMING_MM            // Report Z deviation (mm) for each point relative to the first
 
-  //#define ASSISTED_TRAMMING_WIZARD    // Add a Tramming Wizard to the LCD menu
+  #define ASSISTED_TRAMMING_WIZARD      // Add a Tramming Wizard to the LCD menu
 
   //#define ASSISTED_TRAMMING_WAIT_POSITION { X_CENTER, Y_CENTER, 30 } // Move the nozzle out of the way for adjustment
 
