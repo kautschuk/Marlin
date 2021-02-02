@@ -49,8 +49,8 @@
 
 #define FAN1_PIN                           PC7
 
-#ifndef CONTROLLER_FAN_PIN
-  #define CONTROLLER_FAN_PIN               FAN1_PIN
+#ifndef E0_AUTO_FAN_PIN
+  #define E0_AUTO_FAN_PIN                  FAN1_PIN
 #endif
 
 #if HAS_TMC_UART
