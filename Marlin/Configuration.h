@@ -475,9 +475,9 @@
 
 // Comment the following line to disable PID and enable bang-bang.
 #define PIDTEMP
-#define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
-#define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
-#define PID_K1 0.95      // Smoothing factor within any PID loop
+#define BANG_MAX 200  // Limits current to nozzle while in bang-bang mode; 255=full current
+#define PID_MAX  255  // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
+#define PID_K1   0.95 // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
   //#define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
@@ -492,9 +492,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp 9.59
-    #define DEFAULT_Ki 0.35
-    #define DEFAULT_Kd 66.13
+    #define DEFAULT_Kp  7.34
+    #define DEFAULT_Ki  0.26
+    #define DEFAULT_Kd 52.68
   #endif
 #endif // PIDTEMP
 
