@@ -12,25 +12,22 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-
 #pragma once
 
-#if NOT_TARGET(TARGET_STM32F1)
-  #error "Oops! Select an STM32F1 board in 'Tools > Board.'"
-#endif
+#include "env_validate.h"
 
 // Release PB3/PB4 (E0 STP/DIR) from JTAG pins
 #define DISABLE_JTAG
 
 // Ignore temp readings during development.
-//#define BOGUS_TEMPERATURE_GRACE_PERIOD 2000
+//#define BOGUS_TEMPERATURE_GRACE_PERIOD    2000
 
 #if EITHER(NO_EEPROM_SELECTED, FLASH_EEPROM_EMULATION)
   #define FLASH_EEPROM_EMULATION
@@ -42,32 +39,32 @@
 //
 // Servos
 //
-#define SERVO0_PIN                          PA1
+#define SERVO0_PIN                          PA1   // SERVOS
 
 //
 // Limit Switches
 //
-#define X_STOP_PIN                          PC0
-#define Y_STOP_PIN                          PC1
-#define Z_STOP_PIN                          PC14
+#define X_STOP_PIN                          PC0   // X-STOP
+#define Y_STOP_PIN                          PC1   // Y-STOP
+#define Z_STOP_PIN                          PC14  // Z-STOP
 
 //
 // Z Probe must be this pin
 //
-#define Z_MIN_PROBE_PIN                     PC2
+#define Z_MIN_PROBE_PIN                     PC2   // PROBE
 
 //
 // Filament Runout Sensor
 //
 #ifndef FIL_RUNOUT_PIN
-  #define FIL_RUNOUT_PIN                    PC15 // E0-STOP
+  #define FIL_RUNOUT_PIN                    PC15  // E0-STOP
 #endif
 
 //
 // Power-loss Detection
 //
 #ifndef POWER_LOSS_PIN
-  #define POWER_LOSS_PIN                    PC12 // PWR-DET
+  #define POWER_LOSS_PIN                    PC12  // Power Loss Detection: PWR-DET
 #endif
 
 //
@@ -92,19 +89,19 @@
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN                          PA0 // Analog Input "TH0"
-#define TEMP_BED_PIN                        PC3 // Analog Input "TB0"
+#define TEMP_0_PIN                          PA0   // Analog Input "TH0"
+#define TEMP_BED_PIN                        PC3   // Analog Input "TB0"
 
 //
 // Heaters / Fans
 //
-#define HEATER_0_PIN                        PC8 // "HE"
-#define HEATER_BED_PIN                      PC9 // "HB"
+#define HEATER_0_PIN                        PC8   // "HE"
+#define HEATER_BED_PIN                      PC9   // "HB"
 
 #ifdef SKR_MINI_E3_V2
-  #define FAN_PIN                           PC6 // "FAN0"
+  #define FAN_PIN                           PC6
 #else
-  #define FAN_PIN                           PA8 // "FAN0"
+  #define FAN_PIN                           PA8   // "FAN0"
 #endif
 
 //
@@ -116,14 +113,14 @@
   #define USB_CONNECT_PIN                   PC13
 #endif
 
-#define USB_CONNECT_INVERTING false
+#define USB_CONNECT_INVERTING              false
 
 /**
  *        SKR Mini E3 V1.0, V1.2                      SKR Mini E3 V2.0
  *                _____                                     _____
  *            5V | 1 2 | GND                            5V | 1 2 | GND
  *  (LCD_EN) PB7 | 3 4 | PB8  (LCD_RS)       (LCD_EN) PB15 | 3 4 | PB8  (LCD_RS)
- *  (LCD_D4) PB9 | 5 6   PA10 (BTN_EN2)      (LCD_D4)  PB9 | 5 6   PA10 (BTN_EN2)
+ *  (LCD_D4) PB9 | 5 6   PA10 (BTN_EN2)      (LCD_D4) PB9  | 5 6   PA10 (BTN_EN2)
  *         RESET | 7 8 | PA9  (BTN_EN1)              RESET | 7 8 | PA9  (BTN_EN1)
  * (BTN_ENC) PB6 | 9 10| PB5  (BEEPER)      (BTN_ENC) PA15 | 9 10| PB5  (BEEPER)
  *                -----                                     -----
@@ -142,37 +139,37 @@
   #if ENABLED(CR10_STOCKDISPLAY)
 
     #define BEEPER_PIN                      PB5
-    #define BTN_ENC                         EXP1_9
+    #define BTN_ENC                       EXP1_9
 
     #define BTN_EN1                         PA9
     #define BTN_EN2                         PA10
 
     #define LCD_PINS_RS                     PB8
-    #define LCD_PINS_ENABLE                 EXP1_3
+    #define LCD_PINS_ENABLE               EXP1_3
     #define LCD_PINS_D4                     PB9
 
-  #elif ENABLED(ZONESTAR_LCD) // ANET A8 LCD Controller - Must convert to 3.3V - CONNECTING TO 5V WILL DAMAGE THE BOARD!
+  #elif ENABLED(ZONESTAR_LCD)                     // ANET A8 LCD Controller - Must convert to 3.3V - CONNECTING TO 5V WILL DAMAGE THE BOARD!
 
     #error "CAUTION! ZONESTAR_LCD requires wiring modifications. See 'pins_BTT_SKR_MINI_E3_common.h' for details. Comment out this line to continue."
 
     #define LCD_PINS_RS                     PB9
-    #define LCD_PINS_ENABLE                 EXP1_9
+    #define LCD_PINS_ENABLE               EXP1_9
     #define LCD_PINS_D4                     PB8
     #define LCD_PINS_D5                     PA10
     #define LCD_PINS_D6                     PA9
     #define LCD_PINS_D7                     PB5
-    #define ADC_KEYPAD_PIN                  PA1 // Repurpose servo pin for ADC - CONNECTING TO 5V WILL DAMAGE THE BOARD!
+    #define ADC_KEYPAD_PIN                  PA1   // Repurpose servo pin for ADC - CONNECTING TO 5V WILL DAMAGE THE BOARD!
 
   #elif EITHER(MKS_MINI_12864, ENDER2_STOCKDISPLAY)
 
-    #define BTN_ENC                         EXP1_9
+    #define BTN_ENC                       EXP1_9
     #define BTN_EN1                         PA9
     #define BTN_EN2                         PA10
 
     #define DOGLCD_CS                       PB8
     #define DOGLCD_A0                       PB9
     #define DOGLCD_SCK                      PB5
-    #define DOGLCD_MOSI                     EXP1_3
+    #define DOGLCD_MOSI                   EXP1_3
 
     #define FORCE_SOFT_SPI
     #define LCD_BACKLIGHT_PIN               -1
@@ -212,7 +209,7 @@
        *  EXP1-10 ----------- EXP1-7
        */
 
-      #define TFTGLCD_CS                      PA9
+      #define TFTGLCD_CS                    PA9
 
     #endif
 
@@ -254,9 +251,9 @@
    *  EXP1-10 ----------- EXP1-7
    */
 
-  #define CLCD_SPI_BUS                      1 // SPI1 connector
+  #define CLCD_SPI_BUS                         1  // SPI1 connector
 
-  #define BEEPER_PIN                        EXP1_9
+  #define BEEPER_PIN                      EXP1_9
 
   #define CLCD_MOD_RESET                    PA9
   #define CLCD_SPI_CS                       PB8
@@ -268,7 +265,7 @@
 //
 
 #ifndef SDCARD_CONNECTION
-  #define SDCARD_CONNECTION ONBOARD
+  #define SDCARD_CONNECTION              ONBOARD
 #endif
 
 #if SD_CONNECTION_IS(ONBOARD)
@@ -280,5 +277,6 @@
   #error "SD CUSTOM_CABLE is not compatible with SKR Mini E3."
 #endif
 
-#define ONBOARD_SPI_DEVICE                  1   // SPI1
-#define ONBOARD_SD_CS_PIN                   PA4 // Chip select for "System" SD card
+#define ONBOARD_SPI_DEVICE                     1  // SPI1 -> used only by HAL/STM32F1...
+#define ONBOARD_SD_CS_PIN                   PA4   // Chip select for "System" SD card
+
